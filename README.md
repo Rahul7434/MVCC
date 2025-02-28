@@ -7,7 +7,7 @@ Multiple transaction can happen with database at the same time without blocking 
 
 1.Starts transaction -> Assigns XID
 2.Read Data -> sees only committed rows before its XID.
-3.Modify Data & Deleted Data-> Creates a new version (tuple) of the row (Xmax).
+3.Modify Data -> Creates a new version (tuple) of the row with updated data.
 4.Commit Transaction -> New row version becomes visible.
 5.RollBack Transaction -> New row version is discarded.
 
