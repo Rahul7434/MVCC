@@ -2,8 +2,10 @@
 ```
 Multi-version Concurency control allows multiple transactions to take place simultaneously while maintaining data consistency and isolation.
 Multiple transaction can happen with database at the same time without blocking each other. It maintains multiple versions of rows.
-
+- PostgreSQL support three columns internally to track rows versions (Xmin, Xmax, Xid).
 - When transaction starts, PostgreSQL assigns a Transaction ID (XID) to that transaction.
+- When transaction updated or Deleted postgresql assigns a transaction Id to (Xmax),
+- When transaction inserted postgresql assigns a transaction id to (Xmin).
 
 1.Starts transaction -> Assigns XID
 2.Read Data -> sees only committed rows before its XID.
