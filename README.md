@@ -7,9 +7,10 @@ Multiple transaction can happen with database at the same time without blocking 
 
 1.Starts transaction -> Assigns XID
 2.Read Data -> sees only committed rows before its XID.
-3.Modify Data -> Creates a new version (tuple) of the row with updated data.
+3.Modify Data -> Creates a new version (tuple) of the row with updated data & old version is marked as dead both versions arepresent until the vacuum process cleans up the dead row.
 4.Commit Transaction -> New row version becomes visible.
 5.RollBack Transaction -> New row version is discarded.
+6.Delete -> The row is only marked as dead, no new version is created.
 
 ```
 #### When will transaction Block & which Transaction will Not Block?
@@ -29,6 +30,7 @@ Multiple transaction can happen with database at the same time without blocking 
 ```
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 ```
+
 ```
 - SERIALIZABLE gurantees that transaction will execute in a way as if they were executed one by one sequentlly, even id they actually run concurently.
 - Postgresql creates snapshots of the database at the moment the transaction starts.
