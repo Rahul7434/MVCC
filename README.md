@@ -28,7 +28,11 @@ Multiple transaction can happen with database at the same time without blocking 
 4.DELETE on Dfferent Rows
 ```
 
-#### If we want 100% non-blocking reads use :
+#### If we want 100% non-blocking reads use below isolation levels, We can manage It by using Isolation Levels:
+- Postgresql Support | Read Committed (default Level) | Repeatable Read | Serializable.
+
+
+- SERIALIZABLE
 ```
 SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 ```
@@ -39,10 +43,25 @@ SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
 - transaction reads only the snapshot data.
 - It will not see any changes made by other concurrent transaction until it commits.
 - If two transaction try to modify the same row or related data, one transaction will autimatically abort with an error: "could not serialize access due to concurrent update".
-
--------------------------
-
-Use "NOWAIT" The query will imidiatly returns an error if the row is already locked.
+```
+---
+- Read Commited (Default level)
+```
+SET TRANSACTION ISOLATION LEVEL Read Committed;
+```
+```
+- Each query sees only data that was commited before the query started.
+- Uncommitted changes from other transactions are not visible.
+- Non-repeatable reads are possible.
+```
+- Repeatable Read
+```
+SET TRANSACTION ISOLATION LEVEL Repeatable Reads;
+```
+```
+- All queries in the same transaction see a snapshot of the database taken when the transaction started.
+- No other transaction's changes are visible during the transaction.
+- phantom reads are possible
 ```
 
 
